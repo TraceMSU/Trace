@@ -1,0 +1,64 @@
+#Create a Tocken Class as given below
+class Token:
+   def __init__(self, type_, value=None):
+     self.type = type_
+     self.value = value
+
+   def __repr__(self):
+     return f"Token({self.type}, '{self.value}')"
+#Create TOCKENS list
+RR_INT  = 'RR_INT'
+RR_FLOAT = 'RR_FLOAT'
+RR_PLUS  = 'RR_PLUS'
+RR_MINUS = 'RR_MINUS'
+
+#Create number list
+DIGITS = '0123456789'
+#Create a lexer class constructor as below 
+class Lexer:
+  def __init__(self, fn, text):
+        self.fn = fn    
+        self.text = text
+        self.pos = -1 
+        self.current_char = None
+        self.advance()
+        
+# Complete the advance function below to move thru characters
+  def advance(self):
+     pass # complete the function to move to next character, 
+          # and assign the character to self.current_char if not past the last character.
+        
+# Making tockens function '+' given for you,
+# complete it for - and numbers from 0-9 (make number function is given below)
+   def make_tokens(self):
+     tokens = []
+     while self.current_char != None:
+       if self.current_char == '+':
+         tokens.append(Token(RR_PLUS))
+         self.advance()
+       elif self.current_char in DIGITS: 
+         tokens.append(self.make_number())
+       else: pass
+     return tokens
+#make number function - to make numbers from user entry
+   def make_number(self):
+     num_str = ''
+     dot_count = 0
+     while self.current_char != None and self.current_char in DIGITS + '.':
+       #  ----------------------------
+       # check if dot or digit
+       # if dot assign dot to num_str
+       #if digit assign the digit to num_str
+       num_str=1 #remove this statement after modification
+       self.advance()
+     if dot_count == 0:
+       return Token(RR_INT, int(num_str))
+     else:
+       return Token(RR_FLOAT, float(num_str))
+     
+# Executing function
+
+def run(fn, text):
+    lexer = Lexer(fn, text)
+    tokens = lexer.make_tokens() 
+    return tokens
