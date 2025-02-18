@@ -1,3 +1,1 @@
-# flutter_test_3
-
-A new Flutter project.
+This is the flutter framework for the TRACE project.
