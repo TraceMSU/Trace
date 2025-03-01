@@ -30,5 +30,14 @@ COPY . /workspace
 # Install the required gems
 RUN bundle install
 
+# Set PATH so that /usr/local/bin is first (ensuring our wrapper is used)
+ENV PATH="/usr/local/bin:${PATH}"
+
+# Create a wrapper script for 'rails' in /usr/local/bin using printf and convert to LF
+RUN apt-get update && apt-get install -y dos2unix && \
+    printf '#!/bin/sh\nexec /usr/local/bundle/bin/rails "$@"\n' > /usr/local/bin/rails && \
+    dos2unix /usr/local/bin/rails && \
+    chmod +x /usr/local/bin/rails
+
 # Set default entry command to a bash shell
 CMD ["bash"]
