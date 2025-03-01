@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -6,7 +8,7 @@ void main() {
 
 /// The main application widget.
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
 
 /// The MainScreen widget manages two pages and displays a bottom navigation bar.
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -36,14 +38,41 @@ class _MainScreenState extends State<MainScreen> {
   String _searchQuery = '';
   List<String> _searchResults = [];
 
-  /// Simulates a search operation. Later, replace with Rails call
-  void _performSearch(String query) {
+  /// This function sends a search query to the Rails backend.
+  Future<void> _performSearch(String query) async {
     setState(() {
       _searchQuery = query;
-      // Simulate search results by generating a few dummy entries.
-      _searchResults = List.generate(
-          5, (index) => "Result ${index + 1} for '$query'");
     });
+
+    if (query.isEmpty) {
+      setState(() {
+        _searchResults = [];
+      });
+      return;
+    }
+
+    // Send the request to your Rails backend
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:3000/search'),  // Replace with your backend URL
+      );
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final data = jsonDecode(response.body);
+        setState(() {
+          _searchResults = List<String>.from(data['results'].map((result) => result.toString()));
+        });
+      } else {
+        setState(() {
+          _searchResults = ['Error: Unable to fetch data'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _searchResults = ['Error: $e'];
+      });
+    }
   }
 
   @override
@@ -107,19 +136,19 @@ class _MainScreenState extends State<MainScreen> {
 class SearchPage extends StatelessWidget {
   final Function(String) onSearch;
 
-  const SearchPage({Key? key, required this.onSearch}) : super(key: key);
+  const SearchPage({super.key, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
     // Use a controller to get the text from the TextField.
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
           TextField(
-            controller: _controller,
+            controller: controller,
             decoration: const InputDecoration(
               labelText: 'Search',
               hintText: 'Enter search term',
@@ -132,7 +161,7 @@ class SearchPage extends StatelessWidget {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              onSearch(_controller.text);
+              onSearch(controller.text);
             },
             child: const Text('Search'),
           ),
@@ -147,8 +176,7 @@ class ResultsPage extends StatelessWidget {
   final String query;
   final List<String> results;
 
-  const ResultsPage({Key? key, required this.query, required this.results})
-      : super(key: key);
+  const ResultsPage({super.key, required this.query, required this.results});
 
   @override
   Widget build(BuildContext context) {
