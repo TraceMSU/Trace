@@ -38,42 +38,44 @@ class _MainScreenState extends State<MainScreen> {
   String _searchQuery = '';
   List<String> _searchResults = [];
 
-  /// This function sends a search query to the Rails backend.
-  Future<void> _performSearch(String query) async {
+Future<void> _performSearch(String query) async {
+  setState(() {
+    _searchQuery = query;
+  });
+
+  if (query.isEmpty) {
     setState(() {
-      _searchQuery = query;
+      _searchResults = [];
     });
-
-    if (query.isEmpty) {
-      setState(() {
-        _searchResults = [];
-      });
-      return;
-    }
-
-    // Send the request to your Rails backend
-    try {
-      final response = await http.get(
-        Uri.parse('http://localhost:3000/search'),  // Replace with your backend URL
-      );
-
-      if (response.statusCode == 200) {
-        // Parse the JSON response
-        final data = jsonDecode(response.body);
-        setState(() {
-          _searchResults = List<String>.from(data['results'].map((result) => result.toString()));
-        });
-      } else {
-        setState(() {
-          _searchResults = ['Error: Unable to fetch data'];
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _searchResults = ['Error: $e'];
-      });
-    }
+    return;
   }
+
+  // Append the search query as a query parameter named "q"
+  final url = Uri.parse('http://localhost:3000/search?q=${Uri.encodeComponent(query)}');
+
+  try {
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final data = jsonDecode(response.body);
+      setState(() {
+        _searchResults = List<String>.from(
+          data['results'].map((result) => result.toString())
+        );
+      });
+    } else {
+      setState(() {
+        _searchResults = ['Error: Unable to fetch data'];
+      });
+    }
+  } catch (e) {
+    setState(() {
+      _searchResults = ['Error: $e'];
+    });
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
