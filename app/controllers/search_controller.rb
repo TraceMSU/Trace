@@ -2,8 +2,7 @@ require 'roo'
 
 class SearchController < ApplicationController
   def search
-    query = params[:q].to_s.strip  # Use parameter 'q' and strip extra spaces
-    Rails.logger.info "Search query: '#{query}'"
+    query = params[:q].to_s.strip  # Ensure the query is stripped of leading/trailing spaces
     results = search_products_from_excel(query)
     render json: { query: query, results: results }
   end
@@ -30,23 +29,26 @@ class SearchController < ApplicationController
   
       header_row = sheet.row(1).map(&:to_s).map(&:downcase)
       data_rows = (2..sheet.last_row)
+
       results = []
-  
+
       data_rows.each do |row_num|
         row = sheet.row(row_num)
+
         product_data = {}
         header_row.each_with_index do |header_cell, index|
           data_cell = row[index]
           product_data[header_cell] = data_cell.nil? ? '' : data_cell.to_s.strip
         end
-  
+
         Rails.logger.info "Row #{row_num} data: #{product_data.inspect}"
-  
+
         # Skip this row if any value is nil or empty
         next if product_data.values.any? { |v| v.to_s.strip.empty? }
-  
-        # Only consider rows where the brand starts with the query (case-insensitive)
-        if product_data['brand'].downcase.start_with?(query.downcase)
+
+        # Check if any field contains the query (case-insensitive)
+        if product_data.values.any? { |value| value.downcase.include?(query.downcase) }
+          # Build a hash containing only the desired keys, e.g., brand, owner, and ownership type.
           filtered = {
             brand: product_data['brand'],
             owner: product_data['owner'],
@@ -56,13 +58,13 @@ class SearchController < ApplicationController
           Rails.logger.info "Match found in row #{row_num}: #{filtered.inspect}"
         end
       end
-  
+
       Rails.logger.info "Total results found: #{results.count}"
       results
-  
+
     rescue => e
-      Rails.logger.error "Error reading Excel file: #{e.message}"
-      []
+      Rails.logger.error "Error processing Excel file: #{e.message}"
+      return []
     end
   end
   
