@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'recent_searches.dart'; // Helper class for SharedPreferences
 import 'recent_history_page.dart'; // Page to display recent searches
 
@@ -31,7 +32,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   String _searchQuery = '';
-  // We'll keep _searchResults as a list of full result entries, stored as a list of maps.
+  // Full result entries as a list of maps.
   List<Map<String, dynamic>> _searchResults = [];
   final RecentSearches recentSearches = RecentSearches();
 
@@ -55,14 +56,13 @@ class _MainScreenState extends State<MainScreen> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        // Assume data['results'] is an array of objects (maps)
+        // Assume data['results'] is an array of product objects (maps)
         final List<dynamic> results = data['results'];
 
-        // Save the full search entry (query + full results) into shared_preferences
+        // Save the full search entry (query + full results) into SharedPreferences.
         await recentSearches.addSearchEntry(query, results);
 
         setState(() {
-          // Update our state with the full result entries
           _searchResults = List<Map<String, dynamic>>.from(results);
         });
       } else {
@@ -82,8 +82,8 @@ class _MainScreenState extends State<MainScreen> {
     // For simplicity, we'll display the results from the most recent entry.
     if (entries.isNotEmpty) {
       setState(() {
-        _searchQuery = entries.first["query"];
-        _searchResults = List<Map<String, dynamic>>.from(entries.first["results"]);
+        _searchQuery = entries.first["query"] ?? '';
+        _searchResults = List<Map<String, dynamic>>.from(entries.first["results"] ?? []);
       });
     }
   }
@@ -91,7 +91,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    // Optionally load recent searches when the app starts
     _loadRecentSearches();
   }
 
@@ -130,7 +129,7 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
               ),
-              // History Button: Navigate to the recent history page.
+              // History Button: Navigates to the RecentHistoryPage.
               IconButton(
                 icon: const Icon(Icons.history),
                 onPressed: () {
@@ -165,6 +164,27 @@ class _MainScreenState extends State<MainScreen> {
 class SearchPage extends StatelessWidget {
   final Function(String) onSearch;
   const SearchPage({super.key, required this.onSearch});
+
+  /// This function queries your backend for product suggestions.
+  /// The backend endpoint should accept a query parameter "q" and return a JSON with a "suggestions" array,
+  /// where each suggestion is a product object (a Map) with keys: "brand", "owner", and "ownership type".
+  Future<List<Map<String, dynamic>>> _getSuggestions(String pattern) async {
+    if (pattern.isEmpty) return [];
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:3000/suggestions?q=${Uri.encodeComponent(pattern)}'),
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        // Return the list of product suggestions.
+        return List<Map<String, dynamic>>.from(data['suggestions']);
+      }
+    } catch (e) {
+      return [];
+    }
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
@@ -172,16 +192,38 @@ class SearchPage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          TextField(
-            controller: controller,
-            decoration: const InputDecoration(
-              labelText: 'Search',
-              hintText: 'Enter search term',
-              border: OutlineInputBorder(),
+          // Use TypeAheadField to show product suggestions.
+          TypeAheadField<Map<String, dynamic>>(
+            textFieldConfiguration: TextFieldConfiguration(
+              controller: controller,
+              decoration: const InputDecoration(
+                labelText: 'Search',
+                hintText: 'Enter search term',
+                border: OutlineInputBorder(),
+              ),
+              onSubmitted: (value) {
+                onSearch(value);
+              },
             ),
-            onSubmitted: (value) {
-              onSearch(value);
+            suggestionsCallback: _getSuggestions,
+            itemBuilder: (context, suggestion) {
+              return ListTile(
+                title: Text(suggestion['brand'] ?? ''),
+                subtitle: Text(
+                  'Owner: ${suggestion['owner'] ?? 'N/A'}\n'
+                  'Ownership Type: ${suggestion['ownership type'] ?? suggestion['ownership_type'] ?? 'N/A'}',
+                ),
+              );
             },
+            onSuggestionSelected: (suggestion) {
+              // When a suggestion is selected, update the text field and trigger the search.
+              controller.text = suggestion['brand'] ?? '';
+              onSearch(controller.text);
+            },
+            noItemsFoundBuilder: (context) => const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('No suggestions found.'),
+            ),
           ),
           const SizedBox(height: 16),
           ElevatedButton(
@@ -217,12 +259,12 @@ class ResultsPage extends StatelessWidget {
               itemCount: results.length,
               itemBuilder: (context, index) {
                 final result = results[index];
-                // Display full details for each result.
-                // Adjust keys if your backend returns different names.
                 return ListTile(
                   title: Text(result['brand'] ?? 'No brand'),
-                  subtitle: Text('Owner: ${result['owner'] ?? 'N/A'}\n'
-                      'Ownership Type: ${result['ownership type'] ?? result['ownership_type'] ?? 'N/A'}'),
+                  subtitle: Text(
+                    'Owner: ${result['owner'] ?? 'N/A'}\n'
+                    'Ownership Type: ${result['ownership type'] ?? result['ownership_type'] ?? 'N/A'}',
+                  ),
                 );
               },
             ),
