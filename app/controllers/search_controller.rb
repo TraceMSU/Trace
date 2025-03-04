@@ -2,8 +2,7 @@ require 'roo'
 
 class SearchController < ApplicationController
   def search
-    query = params[:q].to_s.strip  # Use parameter 'q' and strip extra spaces
-    Rails.logger.info "Search query: '#{query}'"
+    query = params[:q].to_s.strip  # Ensure the query is stripped of leading/trailing spaces
     results = search_products_from_excel(query)
     render json: { query: query, results: results }
   end
@@ -30,40 +29,58 @@ class SearchController < ApplicationController
 
       header_row = sheet.row(1).map(&:to_s).map(&:downcase)
       data_rows = (2..sheet.last_row)
-      results = []
 
+      results = []
       data_rows.each do |row_num|
         row = sheet.row(row_num)
+
         product_data = {}
         header_row.each_with_index do |header_cell, index|
           data_cell = row[index]
           product_data[header_cell] = data_cell.nil? ? '' : data_cell.to_s.strip
         end
 
-        Rails.logger.info "Row #{row_num} data: #{product_data.inspect}"
 
-        # Skip this row if any value is nil or empty
-        next if product_data.values.any? { |v| v.to_s.strip.empty? }
-
-        # Check if any field contains the query (case-insensitive)
-        if product_data.values.any? { |value| value.downcase.include?(query.downcase) }
-          # Build a hash containing only the desired keys, e.g., brand, owner, and ownership type.
-          filtered = {
-            brand: product_data['brand'],
-            owner: product_data['owner'],
-            ownership_type: product_data['ownership type'] || product_data['ownership_type']
-          }
-          results << filtered
-          Rails.logger.info "Match found in row #{row_num}: #{filtered.inspect}"
+        # Check for any nil or empty values
+        empty_value_found = false
+        product_data.each do |key, value|
+          if value.nil? || value.to_s.strip.empty?
+            empty_value_found = true
+            break # Skip this row entirely if any value is empty
+          end
         end
+
+        # Skip processing this row if it has empty values
+        next if empty_value_found
+
+        # Proceed with matching the query (case-insensitive comparison without downcase)
+        match_found = false
+        product_data.each do |key, value|
+          # Strip the value and query to remove any extra spaces and compare
+          value = value.nil? ? '' : value.to_s.strip
+          query = query.strip # Ensure query is always a string and stripped
+
+          # Safeguard: Skip nil or empty values before comparison
+          if value.empty?
+            Rails.logger.warn "Skipping empty value for key '#{key}' in row #{row_num}"
+            next
+          end
+
+          # Compare values and set match_found to true if a match is found
+          if value.downcase.include?(query.downcase)
+            match_found = true
+            break
+          end
+        end
+
+        # Add the product data to the results if a match was found
+        results << product_data if match_found
       end
 
-      Rails.logger.info "Total results found: #{results.count}"
       results
-
     rescue => e
-      Rails.logger.error "Error reading Excel file: #{e.message}"
-      []
+      Rails.logger.error "Error processing Excel file: #{e.message}"
+      return []
     end
   end
 end
