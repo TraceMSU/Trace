@@ -4,8 +4,24 @@
         "source": "com.example.flutter_test_3.app-main-36:/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
         "merged": "com.example.flutter_test_3.app-merged_res-41:/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "com.example.flutter_test_3.app-main-36:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
         "merged": "com.example.flutter_test_3.app-merged_res-41:/mipmap-xxhdpi_ic_launcher.png.flat",
@@ -16,11 +32,15 @@
         "source": "com.example.flutter_test_3.app-main-36:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.flutter_test_3.app-merged_res-41:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.example.flutter_test_3.app-main-36:/mipmap-mdpi/ic_launcher.png"
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\mipmap-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.example.flutter_test_3.app-merged_res-41:/drawable-v21_launch_background.xml.flat",
-        "source": "com.example.flutter_test_3.app-main-36:/drawable-v21/launch_background.xml"
+        "merged": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-merged_res-41:\\drawable-v21_launch_background.xml.flat",
+        "source": "C:\\Users\\colto\\.gradle\\daemon\\8.3\\com.example.flutter_test_3.app-main-36:\\drawable-v21\\launch_background.xml"
+    },
+    {
+        "merged": "com.example.flutter_test_3.app-merged_res-41:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.example.flutter_test_3.app-main-36:/mipmap-mdpi/ic_launcher.png"
     }
 ]
