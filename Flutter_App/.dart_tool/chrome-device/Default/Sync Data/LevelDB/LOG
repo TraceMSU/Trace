@@ -1,3 +1,2 @@
-2025/03/24-13:37:17.321 15d50 Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.3fe09154\flutter_tools_chrome_device.98a1c6ea\Default\Sync Data\LevelDB/MANIFEST-000001
-2025/03/24-13:37:17.321 15d50 Recovering log #3
-2025/03/24-13:37:17.322 15d50 Reusing old log C:\Users\colto\AppData\Local\Temp\flutter_tools.3fe09154\flutter_tools_chrome_device.98a1c6ea\Default\Sync Data\LevelDB/000003.log 
+2025/03/24-14:36:41.070 20de8 Creating DB C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\Sync Data\LevelDB since it was missing.
+2025/03/24-14:36:41.074 20de8 Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\Sync Data\LevelDB/MANIFEST-000001
