@@ -1,0 +1,2 @@
+com/jrai/flutter_keyboard_visibility/FlutterKeyboardVisibilityPlugin.class
+com/jrai/flutter_keyboard_visibility/R.class
