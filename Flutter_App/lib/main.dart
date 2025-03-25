@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'recent_searches.dart'; // Helper class for SharedPreferences
 import 'recent_history_page.dart'; // Page to display recent searches
+import 'heap_result_tile.dart'; // Custom widget for search results
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter & Rails Template',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+          ),
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.black),
+          bodyMedium: TextStyle(color: Colors.black),
+        ),
       ),
       home: const MainScreen(),
     );
@@ -237,11 +255,12 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
-
 class ResultsPage extends StatelessWidget {
   final String query;
   final List<Map<String, dynamic>> results;
+  
   const ResultsPage({super.key, required this.query, required this.results});
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -259,15 +278,17 @@ class ResultsPage extends StatelessWidget {
               itemCount: results.length,
               itemBuilder: (context, index) {
                 final result = results[index];
-                return ListTile(
-                  title: Text(result['brand'] ?? 'No brand'),
-                  subtitle: Text(
-                    'Owner: ${result['owner'] ?? 'N/A'}\n'
-                    'Ownership Type: ${result['ownership type'] ?? result['ownership_type'] ?? 'N/A'}',
-                  ),
+                return HeapResultTile(
+                  ownershipType: result['ownership type'] ??
+                      result['ownership_type'] ??
+                      'N/A',
+                  owner: result['owner'] ?? 'N/A',
+                  brand: result['brand'] ?? 'No brand',
                 );
               },
             ),
     );
   }
 }
+
+
