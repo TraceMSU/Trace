@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'recent_searches.dart'; // Helper class for SharedPreferences
 import 'recent_history_page.dart'; // Page to display recent searches
-import 'heap_result_tile.dart'; // Custom widget for search results
+import 'results_page.dart'; // Page to display search results
 
 void main() {
   runApp(const MyApp());
@@ -97,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Future<void> _loadRecentSearches() async {
     final entries = await recentSearches.getRecentSearchEntries();
-    // For simplicity, we'll display the results from the most recent entry.
+    // For simplicity, display the most recent entry.
     if (entries.isNotEmpty) {
       setState(() {
         _searchQuery = entries.first["query"] ?? '';
@@ -115,13 +115,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      SearchPage(
-        onSearch: _performSearch,
-      ),
-      ResultsPage(
-        query: _searchQuery,
-        results: _searchResults,
-      ),
+      SearchPage(onSearch: _performSearch),
+      ResultsPage(query: _searchQuery, results: _searchResults),
     ];
 
     return Scaffold(
@@ -147,16 +142,23 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
               ),
-              // History Button: Navigates to the RecentHistoryPage.
+              // History Button: Navigate to RecentHistoryPage and await result.
               IconButton(
                 icon: const Icon(Icons.history),
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final entry = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const RecentHistoryPage(),
                     ),
                   );
+                  if (entry != null && entry is Map) {
+                    setState(() {
+                      _searchQuery = entry['query'] ?? '';
+                      _searchResults = List<Map<String, dynamic>>.from(entry['results'] ?? []);
+                      _currentIndex = 1; // Switch to ResultsPage
+                    });
+                  }
                 },
               ),
               // Results Button
@@ -179,13 +181,12 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
+// Inline definition of SearchPage for simplicity.
 class SearchPage extends StatelessWidget {
   final Function(String) onSearch;
   const SearchPage({super.key, required this.onSearch});
 
-  /// This function queries your backend for product suggestions.
-  /// The backend endpoint should accept a query parameter "q" and return a JSON with a "suggestions" array,
-  /// where each suggestion is a product object (a Map) with keys: "brand", "owner", and "ownership type".
+  /// Queries your backend for product suggestions.
   Future<List<Map<String, dynamic>>> _getSuggestions(String pattern) async {
     if (pattern.isEmpty) return [];
     try {
@@ -210,7 +211,7 @@ class SearchPage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          // Use TypeAheadField to show product suggestions.
+          // TypeAheadField for suggestions.
           TypeAheadField<Map<String, dynamic>>(
             textFieldConfiguration: TextFieldConfiguration(
               controller: controller,
@@ -219,8 +220,14 @@ class SearchPage extends StatelessWidget {
                 hintText: 'Enter search term',
                 border: OutlineInputBorder(),
               ),
-              onSubmitted: (value) {
-                onSearch(value);
+              // onSubmitted: fetch suggestions and use closest match.
+              onSubmitted: (value) async {
+                final suggestions = await _getSuggestions(value);
+                if (suggestions.isNotEmpty) {
+                  final closest = suggestions.first;
+                  controller.text = closest['brand'] ?? '';
+                  onSearch(controller.text);
+                }
               },
             ),
             suggestionsCallback: _getSuggestions,
@@ -234,7 +241,6 @@ class SearchPage extends StatelessWidget {
               );
             },
             onSuggestionSelected: (suggestion) {
-              // When a suggestion is selected, update the text field and trigger the search.
               controller.text = suggestion['brand'] ?? '';
               onSearch(controller.text);
             },
@@ -255,40 +261,3 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
-class ResultsPage extends StatelessWidget {
-  final String query;
-  final List<Map<String, dynamic>> results;
-  
-  const ResultsPage({super.key, required this.query, required this.results});
-  
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: results.isEmpty
-          ? Center(
-              child: Text(
-                query.isEmpty
-                    ? 'No search performed yet.'
-                    : 'No results found for "$query".',
-                style: const TextStyle(fontSize: 16),
-              ),
-            )
-          : ListView.builder(
-              itemCount: results.length,
-              itemBuilder: (context, index) {
-                final result = results[index];
-                return HeapResultTile(
-                  ownershipType: result['ownership type'] ??
-                      result['ownership_type'] ??
-                      'N/A',
-                  owner: result['owner'] ?? 'N/A',
-                  brand: result['brand'] ?? 'No brand',
-                );
-              },
-            ),
-    );
-  }
-}
-
-

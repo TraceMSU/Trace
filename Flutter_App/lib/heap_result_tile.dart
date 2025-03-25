@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// this widget formats the search results.
+
 class HeapResultTile extends StatelessWidget {
   final String ownershipType;
   final String owner;

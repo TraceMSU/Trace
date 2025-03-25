@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// this saves the list of recent searches
+
+
 class RecentSearches {
   static const String _key = 'recent_searches';
 
