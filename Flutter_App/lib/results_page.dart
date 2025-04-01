@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'heap_result_tile.dart';
 
-/// this is the page that displays the search results from heap_result_tile.dart file.
+/// This is the page that displays the search results from heap_result_tile.dart.
 
 class ResultsPage extends StatelessWidget {
   final String query;
@@ -11,30 +11,38 @@ class ResultsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: results.isEmpty
-          ? Center(
-              child: Text(
-                query.isEmpty
-                    ? 'No search performed yet.'
-                    : 'No results found for "$query".',
-                style: const TextStyle(fontSize: 16),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Results for "$query"'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: results.isEmpty
+            ? Center(
+                child: Text(
+                  query.isEmpty
+                      ? 'No search performed yet.'
+                      : 'No results found for "$query".',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              )
+            : ListView.builder(
+                itemCount: results.length,
+                itemBuilder: (context, index) {
+                  final result = results[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: HeapResultTile(
+                      ownershipType: result['ownership type'] ??
+                          result['ownership_type'] ??
+                          'N/A',
+                      owner: result['owner'] ?? 'N/A',
+                      brand: result['brand'] ?? 'No brand',
+                    ),
+                  );
+                },
               ),
-            )
-          : ListView.builder(
-              itemCount: results.length,
-              itemBuilder: (context, index) {
-                final result = results[index];
-                return HeapResultTile(
-                  ownershipType: result['ownership type'] ??
-                      result['ownership_type'] ??
-                      'N/A',
-                  owner: result['owner'] ?? 'N/A',
-                  brand: result['brand'] ?? 'No brand',
-                );
-              },
-            ),
+      ),
     );
   }
 }
