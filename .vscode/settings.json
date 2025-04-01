@@ -1,0 +1,7 @@
+{
+    "files.watcherExclude": {
+        "**/target": true
+    },
+    "cmake.sourceDirectory": "H:/My Drive/Important. Taxes,House,college,Med,Mil/College/CS-4360/Trace/Flutter_App/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // in case you need it here
+import 'package:shared_preferences/shared_preferences.dart';
 import 'recent_searches.dart';
+
+/// this is the page that displays the recent_searches.dart file.
 
 class RecentHistoryPage extends StatefulWidget {
   const RecentHistoryPage({super.key});
@@ -11,7 +13,7 @@ class RecentHistoryPage extends StatefulWidget {
 
 class _RecentHistoryPageState extends State<RecentHistoryPage> {
   final RecentSearches _recentSearches = RecentSearches();
-  // We'll store each entry as a Map containing "query" and "results".
+  // Each entry is stored as a Map containing "query" and "results".
   List<Map<String, dynamic>> _entries = [];
 
   @override
@@ -53,18 +55,15 @@ class _RecentHistoryPageState extends State<RecentHistoryPage> {
                 final entry = _entries[index];
                 final query = entry['query'] ?? 'Unknown query';
                 final List<dynamic> results = entry['results'] ?? [];
-                return ExpansionTile(
+                return ListTile(
                   title: Text('$query (${results.length} result${results.length == 1 ? '' : 's'})'),
-                  children: results.map<Widget>((result) {
-                    // Each result should be a Map with keys like 'brand', 'owner', and 'ownership type'
-                    return ListTile(
-                      title: Text(result['brand'] ?? 'No brand'),
-                      subtitle: Text(
-                        'Owner: ${result['owner'] ?? 'N/A'}\n'
-                        'Ownership Type: ${result['ownership type'] ?? result['ownership_type'] ?? 'N/A'}',
-                      ),
-                    );
-                  }).toList(),
+                  onTap: () {
+                    // Instead of pushing a new ResultsPage, pop this page and return the entry.
+                    Navigator.pop(context, {
+                      'query': query,
+                      'results': List<Map<String, dynamic>>.from(results),
+                    });
+                  },
                 );
               },
             ),

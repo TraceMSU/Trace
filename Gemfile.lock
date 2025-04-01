@@ -17,19 +17,33 @@ GEM
       net-imap
       net-pop
       net-smtp
+<<<<<<< HEAD
     actionmailer (7.1.2)
       actionpack (= 7.1.2)
       actionview (= 7.1.2)
       activejob (= 7.1.2)
       activesupport (= 7.1.2)
+=======
+    actionmailer (7.1.5.1)
+      actionpack (= 7.1.5.1)
+      actionview (= 7.1.5.1)
+      activejob (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+>>>>>>> ColtonDev-Flutter+Ruby
       mail (~> 2.5, >= 2.5.4)
       net-imap
       net-pop
       net-smtp
       rails-dom-testing (~> 2.2)
+<<<<<<< HEAD
     actionpack (7.1.2)
       actionview (= 7.1.2)
       activesupport (= 7.1.2)
+=======
+    actionpack (7.1.5.1)
+      actionview (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+>>>>>>> ColtonDev-Flutter+Ruby
       nokogiri (>= 1.8.5)
       racc
       rack (>= 2.2.4)
@@ -37,6 +51,7 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+<<<<<<< HEAD
     actiontext (7.1.2)
       actionpack (= 7.1.2)
       activerecord (= 7.1.2)
@@ -46,10 +61,22 @@ GEM
       nokogiri (>= 1.8.5)
     actionview (7.1.2)
       activesupport (= 7.1.2)
+=======
+    actiontext (7.1.5.1)
+      actionpack (= 7.1.5.1)
+      activerecord (= 7.1.5.1)
+      activestorage (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      globalid (>= 0.6.0)
+      nokogiri (>= 1.8.5)
+    actionview (7.1.5.1)
+      activesupport (= 7.1.5.1)
+>>>>>>> ColtonDev-Flutter+Ruby
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+<<<<<<< HEAD
     activejob (7.1.2)
       activesupport (= 7.1.2)
       globalid (>= 0.3.6)
@@ -67,11 +94,37 @@ GEM
       marcel (~> 1.0)
     activesupport (7.1.2)
       base64
+=======
+    active_model_serializers (0.10.15)
+      actionpack (>= 4.1)
+      activemodel (>= 4.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    activejob (7.1.5.1)
+      activesupport (= 7.1.5.1)
+      globalid (>= 0.3.6)
+    activemodel (7.1.5.1)
+      activesupport (= 7.1.5.1)
+    activerecord (7.1.5.1)
+      activemodel (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      timeout (>= 0.4.0)
+    activestorage (7.1.5.1)
+      actionpack (= 7.1.5.1)
+      activejob (= 7.1.5.1)
+      activerecord (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      marcel (~> 1.0)
+    activesupport (7.1.5.1)
+      base64
+      benchmark (>= 0.3)
+>>>>>>> ColtonDev-Flutter+Ruby
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
+<<<<<<< HEAD
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
@@ -94,6 +147,35 @@ GEM
       fiber-annotation
       fiber-local (~> 1.1)
       json
+=======
+      logger (>= 1.4.2)
+      minitest (>= 5.1)
+      mutex_m
+      securerandom (>= 0.3)
+      tzinfo (~> 2.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
+    base64 (0.2.0)
+    benchmark (0.4.0)
+    bigdecimal (3.1.9)
+    bindex (0.8.1)
+    bootsnap (1.18.4)
+      msgpack (~> 1.2)
+    builder (3.3.0)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
+    case_transform (0.2)
+      activesupport
+    concurrent-ruby (1.3.5)
+    connection_pool (2.5.0)
+>>>>>>> ColtonDev-Flutter+Ruby
     crass (1.0.6)
     date (3.4.1)
     debug (1.10.0)
@@ -101,21 +183,40 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.1)
+<<<<<<< HEAD
     fiber-annotation (0.2.0)
     fiber-local (1.1.0)
       fiber-storage
     fiber-storage (1.0.0)
+=======
+>>>>>>> ColtonDev-Flutter+Ruby
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+<<<<<<< HEAD
     io-console (0.8.0)
     io-event (1.9.0)
+=======
+    importmap-rails (2.1.0)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
+    io-console (0.8.0)
+>>>>>>> ColtonDev-Flutter+Ruby
     irb (1.15.1)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+<<<<<<< HEAD
     json (2.10.1)
+=======
+    jbuilder (2.13.0)
+      actionview (>= 5.0.0)
+      activesupport (>= 5.0.0)
+    jsonapi-renderer (0.2.2)
+    logger (1.6.6)
+>>>>>>> ColtonDev-Flutter+Ruby
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -125,16 +226,23 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+<<<<<<< HEAD
     metrics (0.12.1)
+=======
+    matrix (0.4.2)
+>>>>>>> ColtonDev-Flutter+Ruby
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.8.0)
     mutex_m (0.3.0)
+<<<<<<< HEAD
     neo4j-ruby-driver (4.4.5)
       activesupport (>= 5.2.0)
       async-io
       connection_pool
       zeitwerk (>= 2.1.10)
+=======
+>>>>>>> ColtonDev-Flutter+Ruby
     net-imap (0.5.6)
       date
       net-protocol
@@ -145,6 +253,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+<<<<<<< HEAD
     nokogiri (1.18.3-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.3-aarch64-linux-musl)
@@ -160,6 +269,23 @@ GEM
     nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.3-x86_64-linux-musl)
+=======
+    nokogiri (1.18.2-aarch64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.2-aarch64-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.18.2-arm-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.2-arm-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.18.2-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.2-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.2-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.2-x86_64-linux-musl)
+>>>>>>> ColtonDev-Flutter+Ruby
       racc (~> 1.4)
     pp (0.6.2)
       prettyprint
@@ -167,10 +293,18 @@ GEM
     psych (5.2.3)
       date
       stringio
+<<<<<<< HEAD
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.11)
+=======
+    public_suffix (6.0.1)
+    puma (6.6.0)
+      nio4r (~> 2.0)
+    racc (1.8.1)
+    rack (3.1.10)
+>>>>>>> ColtonDev-Flutter+Ruby
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-session (2.1.0)
@@ -180,6 +314,7 @@ GEM
       rack (>= 1.3)
     rackup (2.2.1)
       rack (>= 3)
+<<<<<<< HEAD
     rails (7.1.2)
       actioncable (= 7.1.2)
       actionmailbox (= 7.1.2)
@@ -194,6 +329,22 @@ GEM
       activesupport (= 7.1.2)
       bundler (>= 1.15.0)
       railties (= 7.1.2)
+=======
+    rails (7.1.5.1)
+      actioncable (= 7.1.5.1)
+      actionmailbox (= 7.1.5.1)
+      actionmailer (= 7.1.5.1)
+      actionpack (= 7.1.5.1)
+      actiontext (= 7.1.5.1)
+      actionview (= 7.1.5.1)
+      activejob (= 7.1.5.1)
+      activemodel (= 7.1.5.1)
+      activerecord (= 7.1.5.1)
+      activestorage (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+      bundler (>= 1.15.0)
+      railties (= 7.1.5.1)
+>>>>>>> ColtonDev-Flutter+Ruby
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -201,9 +352,15 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+<<<<<<< HEAD
     railties (7.1.2)
       actionpack (= 7.1.2)
       activesupport (= 7.1.2)
+=======
+    railties (7.1.5.1)
+      actionpack (= 7.1.5.1)
+      activesupport (= 7.1.5.1)
+>>>>>>> ColtonDev-Flutter+Ruby
       irb
       rackup (>= 1.0.0)
       rake (>= 12.2)
@@ -212,6 +369,7 @@ GEM
     rake (13.2.1)
     rdoc (6.12.0)
       psych (>= 4.0.0)
+<<<<<<< HEAD
     reline (0.6.0)
       io-console (~> 0.5)
     stringio (3.1.5)
@@ -220,10 +378,74 @@ GEM
     traces (0.15.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+=======
+    regexp_parser (2.10.0)
+    reline (0.6.0)
+      io-console (~> 0.5)
+    rexml (3.4.1)
+    roo (2.10.1)
+      nokogiri (~> 1)
+      rubyzip (>= 1.3.0, < 3.0.0)
+    roo-xls (1.2.0)
+      nokogiri
+      roo (>= 2.0.0, < 3)
+      spreadsheet (> 0.9.0)
+    ruby-ole (1.2.13.1)
+    rubyXL (3.4.33)
+      nokogiri (>= 1.10.8)
+      rubyzip (>= 1.3.0)
+    rubyzip (2.4.1)
+    securerandom (0.4.1)
+    selenium-webdriver (4.28.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    spreadsheet (1.3.3)
+      bigdecimal
+      ruby-ole
+    sprockets (4.2.1)
+      concurrent-ruby (~> 1.0)
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
+    sqlite3 (2.5.0-aarch64-linux-gnu)
+    sqlite3 (2.5.0-aarch64-linux-musl)
+    sqlite3 (2.5.0-arm-linux-gnu)
+    sqlite3 (2.5.0-arm-linux-musl)
+    sqlite3 (2.5.0-arm64-darwin)
+    sqlite3 (2.5.0-x86_64-darwin)
+    sqlite3 (2.5.0-x86_64-linux-gnu)
+    sqlite3 (2.5.0-x86_64-linux-musl)
+    stimulus-rails (1.3.4)
+      railties (>= 6.0.0)
+    stringio (3.1.3)
+    thor (1.3.2)
+    timeout (0.4.3)
+    turbo-rails (2.0.11)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+    web-console (4.2.1)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
+      bindex (>= 0.4.0)
+      railties (>= 6.0.0)
+    websocket (1.2.11)
+>>>>>>> ColtonDev-Flutter+Ruby
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+<<<<<<< HEAD
+=======
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
+>>>>>>> ColtonDev-Flutter+Ruby
     zeitwerk (2.7.2)
 
 PLATFORMS
@@ -233,10 +455,15 @@ PLATFORMS
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
+<<<<<<< HEAD
+=======
+  x86_64-linux
+>>>>>>> ColtonDev-Flutter+Ruby
   x86_64-linux-gnu
   x86_64-linux-musl
 
 DEPENDENCIES
+<<<<<<< HEAD
   activesupport (= 7.1.2)
   bootsnap
   debug
@@ -246,9 +473,35 @@ DEPENDENCIES
   rack-cors
   rails (= 7.1.2)
   tzinfo-data
+=======
+  active_model_serializers
+  bootsnap
+  capybara
+  debug
+  importmap-rails
+  jbuilder
+  puma (>= 5.0)
+  rack-cors
+  rails (~> 7.1.5)
+  roo
+  roo-xls
+  rubyXL
+  selenium-webdriver
+  spreadsheet
+  sprockets-rails
+  sqlite3 (>= 1.4)
+  stimulus-rails
+  turbo-rails
+  tzinfo-data
+  web-console
+>>>>>>> ColtonDev-Flutter+Ruby
 
 RUBY VERSION
    ruby 3.2.5p208
 
 BUNDLED WITH
+<<<<<<< HEAD
    2.6.5
+=======
+   2.5.23
+>>>>>>> ColtonDev-Flutter+Ruby

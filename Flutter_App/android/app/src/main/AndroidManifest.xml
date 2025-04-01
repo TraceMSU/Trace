@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+<<<<<<< HEAD
         android:label="TRACE"
+=======
+        android:label="flutter_test_3"
+>>>>>>> ColtonDev-Flutter+Ruby
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
