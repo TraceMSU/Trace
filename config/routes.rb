@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -9,12 +8,3 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
-=======
-# config/routes.rb
-Rails.application.routes.draw do
-  get '/search', to: 'search#search'
-  get '/suggestions', to: 'suggestions#index'
-  post '/import_products', to: 'import#import_products'
-   # ... other routes if needed
-end
->>>>>>> ColtonDev-Flutter+Ruby
