@@ -13,7 +13,7 @@ group :development, :test do
   # if you want to stick with sqlite locally:
   gem 'sqlite3', '~> 1.4'
   gem 'debug', platforms: %i[mri windows]
-+end
+end
 
 group :development do
   # gem "spring"
