@@ -1,15 +1,16 @@
+// lib/search_page.dart
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
-import 'results_page.dart';
 
 const String apiBase = 'https://tracetest.herokuapp.com';
 
-/// This is the page that allows users to search for products.
-
+/// This page allows users to search for products.
+/// It uses a callback to pass results back to the MainScreen.
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final void Function(String, List<Map<String, dynamic>>) onSearch;
+  const SearchPage({super.key, required this.onSearch});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -18,7 +19,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController controller = TextEditingController();
 
-  /// Queries your backend for product suggestions.
   Future<List<Map<String, dynamic>>> _getSuggestions(String pattern) async {
     if (pattern.isEmpty) return [];
     try {
@@ -29,45 +29,25 @@ class _SearchPageState extends State<SearchPage> {
         final data = jsonDecode(response.body);
         return List<Map<String, dynamic>>.from(data['suggestions']);
       }
-    } catch (e) {
-      return [];
-    }
+    } catch (_) {}
     return [];
   }
 
-  /// Perform the actual search and navigate to ResultsPage.
-  Future<void> _handleSearch(String query) async {
+  Future<void> _performSearch(String query) async {
     if (query.isEmpty) return;
-
     try {
       final response = await http.get(
-        Uri.parse(
-            'http://10.0.2.2:3000/search?q=${Uri.encodeComponent(query)}'),
+        Uri.parse('$apiBase/search?q=${Uri.encodeComponent(query)}'),
       );
-
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final results = List<Map<String, dynamic>>.from(data['results']);
-
-        if (!context.mounted) return;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                ResultsPage(query: query, results: results),
-          ),
-        );
+        widget.onSearch(query, results);
       } else {
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to fetch results')),
-        );
+        // handle error if needed
       }
-    } catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('An error occurred during search')),
-      );
+    } catch (_) {
+      // handle exception if needed
     }
   }
 
@@ -77,7 +57,6 @@ class _SearchPageState extends State<SearchPage> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          // Use TypeAheadField to show product suggestions.
           TypeAheadField<Map<String, dynamic>>(
             textFieldConfiguration: TextFieldConfiguration(
               controller: controller,
@@ -86,14 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                 hintText: 'Enter search term',
                 border: OutlineInputBorder(),
               ),
-              onSubmitted: (value) async {
-                final suggestions = await _getSuggestions(value);
-                if (suggestions.isNotEmpty) {
-                  final closest = suggestions.first;
-                  controller.text = closest['brand'] ?? '';
-                  _handleSearch(controller.text);
-                }
-              },
+              onSubmitted: (value) => _performSearch(value),
             ),
             suggestionsCallback: _getSuggestions,
             itemBuilder: (context, suggestion) {
@@ -107,18 +79,16 @@ class _SearchPageState extends State<SearchPage> {
             },
             onSuggestionSelected: (suggestion) {
               controller.text = suggestion['brand'] ?? '';
-              _handleSearch(controller.text);
+              _performSearch(controller.text);
             },
-            noItemsFoundBuilder: (context) => const Padding(
+            noItemsFoundBuilder: (_) => const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('No suggestions found.'),
             ),
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {
-              _handleSearch(controller.text);
-            },
+            onPressed: () => _performSearch(controller.text),
             child: const Text('Search'),
           ),
         ],
