@@ -4,6 +4,8 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 import 'results_page.dart';
 
+const String apiBase = 'https://tracetest.herokuapp.com';
+
 /// This is the page that allows users to search for products.
 
 class SearchPage extends StatefulWidget {
@@ -21,8 +23,7 @@ class _SearchPageState extends State<SearchPage> {
     if (pattern.isEmpty) return [];
     try {
       final response = await http.get(
-        Uri.parse(
-            'http://10.0.2.2:3000/suggestions?q=${Uri.encodeComponent(pattern)}'),
+        Uri.parse('$apiBase/suggestions?q=${Uri.encodeComponent(pattern)}'),
       );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
