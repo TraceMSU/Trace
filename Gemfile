@@ -4,6 +4,7 @@ ruby "3.4.2"
 gem 'logger'      # brings in stdlib Logger
 gem 'bigdecimal'  # brings in stdlib BigDecimal
 gem 'benchmark'
+gem 'rdoc', require: false
 gem 'rails', '~> 7.0.6'
 
 
