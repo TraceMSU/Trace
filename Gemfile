@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 ruby "3.4.2"
+gem 'csv'
 gem 'logger'      # brings in stdlib Logger
 gem 'bigdecimal'  # brings in stdlib BigDecimal
 gem 'benchmark'
