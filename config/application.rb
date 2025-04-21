@@ -1,7 +1,8 @@
-require "logger"
+require "logger"       # ensure Logger is defined for ActiveSupport
+require "bigdecimal"   # ensure BigDecimal is available for JSON, I18n, etc.
 require_relative "boot"
 
-require "rails"
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
