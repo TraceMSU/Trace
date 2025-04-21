@@ -1,10 +1,11 @@
 source "https://rubygems.org"
 
 ruby "3.4.2"
-
-gem 'rails', '~> 7.0.6'
-gem 'logger'
+gem 'logger'      # brings in stdlib Logger
+gem 'bigdecimal'  # brings in stdlib BigDecimal
 gem 'benchmark'
+gem 'rails', '~> 7.0.6'
+
 
 gem 'neo4j', '~> 9.6.2'        # provides ActiveNode
 gem 'neo4j-ruby-driver', '4.4.5' # the low‑level driver

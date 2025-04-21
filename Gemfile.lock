@@ -82,6 +82,7 @@ GEM
       async
     base64 (0.2.0)
     benchmark (0.4.0)
+    bigdecimal (3.1.9)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     builder (3.3.0)
@@ -309,6 +310,7 @@ PLATFORMS
 DEPENDENCIES
   activegraph (~> 10.0)
   benchmark
+  bigdecimal
   bootsnap
   debug
   i18n (~> 1.14, >= 1.14.7)
