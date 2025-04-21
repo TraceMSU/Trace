@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-    get '/ping', to: proc { [200, {}, ['pong']] }
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get '/ping', to: proc { [200, {}, ['pong']] }
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Search endpoint
+  get '/search', to: 'search#search'
+
+  # Suggestions endpoint
+  get '/suggestions', to: 'suggestions#index'
+
+  # Product import endpoint (POST with file param)
+  post '/import_products', to: 'import#import_products'
 end
