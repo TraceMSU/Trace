@@ -665,9 +665,9 @@
       "disabled|device:managed": true,
       "icon": {
          "raster_icon": {
-            "dark_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_image_creator_from_designer.png/1.0.24/asset",
-            "high_contrast": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_image_creator_from_designer_hc.png/1.0.24/asset",
-            "light_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_image_creator_from_designer.png/1.0.24/asset"
+            "dark_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_ImageCreator_DarkMode.png/1.0.25/asset",
+            "high_contrast": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_ImageCreator_HighContrast.png/1.0.25/asset",
+            "light_mode": "https://edgeassetservice.azureedge.net/assets/edge_hub_apps_ImageCreator_LightMode.png/1.0.25/asset"
          }
       },
       "id": "2caf0cf4-ea42-4083-b928-29b39da1182b",
@@ -686,7 +686,7 @@
          "area_path": "Features\\Sidebar\\Image Creator",
          "service_id": "e90c3ebe-36d8-4d05-9689-564773d48f49"
       },
-      "name": "Image Creator from Designer",
+      "name": "Bing Image Creator",
       "name|flight:msDesignerSinglePrompt": "Designer (Preview)",
       "notifications": {
          "enabled": false
@@ -696,7 +696,7 @@
          "url|flight:msDesignerSinglePrompt": "edge://designer/",
          "url|theme:dark": "https://www.bing.com/images/create?FORM=ESHBIC&edgehub=1&darkschemeovr=1&partner=edgehub"
       },
-      "version": "1.0.24"
+      "version": "1.0.25"
    }, {
       "capabilities": {
          "deprecated_hide_header": false

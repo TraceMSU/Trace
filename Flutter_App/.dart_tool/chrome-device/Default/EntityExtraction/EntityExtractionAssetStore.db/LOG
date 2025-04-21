@@ -1,2 +1,3 @@
-2025/03/24-14:36:43.409 21ebc Creating DB C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\EntityExtractionAssetStore.db since it was missing.
-2025/03/24-14:36:43.487 21ebc Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\EntityExtractionAssetStore.db/MANIFEST-000001
+2025/04/16-16:42:44.264 80a8 Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.56594e2e\flutter_tools_chrome_device.48fffd0e\Default\EntityExtractionAssetStore.db/MANIFEST-000001
+2025/04/16-16:42:44.300 80a8 Recovering log #3
+2025/04/16-16:42:44.304 80a8 Reusing old log C:\Users\colto\AppData\Local\Temp\flutter_tools.56594e2e\flutter_tools_chrome_device.48fffd0e\Default\EntityExtractionAssetStore.db/000003.log 

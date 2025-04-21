@@ -1,2 +1,5 @@
-2025/03/24-14:36:43.409 21ec0 Creating DB C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\Asset Store\assets.db since it was missing.
-2025/03/24-14:36:43.422 21ec0 Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.76c31c36\flutter_tools_chrome_device.27e46039\Default\Asset Store\assets.db/MANIFEST-000001
+2025/04/16-16:45:24.339 71a4 Reusing MANIFEST C:\Users\colto\AppData\Local\Temp\flutter_tools.56594e2e\flutter_tools_chrome_device.48fffd0e\Default\Asset Store\assets.db/MANIFEST-000001
+2025/04/16-16:45:24.388 71a4 Recovering log #4
+2025/04/16-16:45:24.406 71a4 Level-0 table #6: started
+2025/04/16-16:45:24.429 71a4 Level-0 table #6: 339483 bytes OK
+2025/04/16-16:45:24.440 71a4 Delete type=0 #4
