@@ -2,7 +2,6 @@ require "logger"       # ensure Logger is defined for ActiveSupport
 require "bigdecimal"   # ensure BigDecimal is available for JSON, I18n, etc.
 require_relative "boot"
 
-require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -15,60 +14,43 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "rails/test_unit/railtie"
-#require "active_record/railtie"
+# require "active_record/railtie"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Now load Neo4j related components
-require "active_support/all"
-require "neo4j/driver"
 module Workspace
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # Autoload and eager-load your lib/ directory
+    config.paths.add "lib", eager_load: true
+    config.autoload_paths << Rails.root.join("lib")
 
-    config.autoload_lib(ignore: %w(assets tasks))
-    config.autoload_paths += %W(#{config.root}/app/models)
-  
-    # Configuration for the application, engines, and railties goes here.
-    # i want to require 'active_graph' in railties.rb upon setup 
-    
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # (You can drop the explicit app/models line if Rails is already picking it up)
+    config.autoload_paths << Rails.root.join("app/models")
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
+    # API‑only middleware (with CORS)
     config.api_only = true
-    # Add inside the Application class
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ENV['CORS_ORIGINS'] || 'http://localhost:8080'
-        resource '*',
+        origins ENV.fetch("CORS_ORIGINS", "http://localhost:8080")
+        resource "*",
           headers: :any,
-          methods: [:get, :post, :put, :patch, :delete, :options, :head],
+          methods: %i[get post put patch delete options head],
           credentials: true
       end
     end
-    # Establish connection using ActiveGraph's preferred method
-    # Establish the connection using establish_driver
-    # Establish the Neo4j connection using the Neo4j::Driver::GraphDatabase.driver method
-    # Establish the Neo4j connection using the Neo4j::Driver::AuthTokens.basic method
-    Neo4j::Driver::GraphDatabase.driver(
-    ENV['NEO4J_URL'] || 'bolt://localhost:7687', # URL of your Neo4j instance
-    Neo4j::Driver::AuthTokens.basic(
-    ENV['NEO4J_USERNAME'] || 'neo4j', # Neo4j username
-    ENV['NEO4J_PASSWORD'] || 'Cheese100!' # Neo4j password
-  )
-)
+
+    # After Rails has booted, establish your Neo4j connection
+    config.after_initialize do
+      Neo4j::Driver::GraphDatabase.driver(
+        ENV.fetch("NEO4J_URL",      "bolt://localhost:7687"),
+        Neo4j::Driver::AuthTokens.basic(
+          ENV.fetch("NEO4J_USERNAME", "neo4j"),
+          ENV.fetch("NEO4J_PASSWORD", "Cheese100!")
+        )
+      )
+    end
   end
 end
