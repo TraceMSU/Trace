@@ -11,7 +11,7 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestions_from_excel(query)
-    excel_file_path = Rails.root.join('lib', 'data', 'AlltheData.csv').to_s
+    excel_file_path = Rails.root.join('lib', 'data', 'AllTheData.csv').to_s
     Rails.logger.info "Excel file path: #{excel_file_path}"
 
     unless File.exist?(excel_file_path)
