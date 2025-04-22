@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 
-const String apiBase = 'https://tracetest.herokuapp.com';
+const String apiBase = 'https://tracetest-dc00a8c7f59d.herokuapp.com';
 
 /// This page allows users to search for products.
 /// It uses a callback to pass results back to the MainScreen.
@@ -19,19 +19,24 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController controller = TextEditingController();
 
-  Future<List<Map<String, dynamic>>> _getSuggestions(String pattern) async {
-    if (pattern.isEmpty) return [];
-    try {
-      final response = await http.get(
-        Uri.parse('$apiBase/suggestions?q=${Uri.encodeComponent(pattern)}'),
-      );
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return List<Map<String, dynamic>>.from(data['suggestions']);
-      }
-    } catch (_) {}
-    return [];
+Future<List<Map<String, dynamic>>> _getSuggestions(String pattern) async {
+  if (pattern.isEmpty) return [];
+  try {
+    final response = await http.get(
+      Uri.parse('$apiBase/suggestions?q=${Uri.encodeComponent(pattern)}'),
+    );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      debugPrint('💡 Suggestions response: $data');
+      return List<Map<String, dynamic>>.from(data['suggestions']);
+    } else {
+      debugPrint('❌ Suggestions error: ${response.statusCode}');
+    }
+  } catch (e) {
+    debugPrint('⚠️ Suggestions exception: $e');
   }
+  return [];
+}
 
   Future<void> _performSearch(String query) async {
     if (query.isEmpty) return;

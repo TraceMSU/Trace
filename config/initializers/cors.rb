@@ -1,16 +1,17 @@
-# Be sure to restart your server when you modify this file.
+# config/initializers/cors.rb
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    # in dev, allow any origin so you can test from localhost:<your port>
+    if Rails.env.development?
+      origins '*'
+    else
+      # in production, only allow your actual API host
+      origins 'https://tracetest-dc00a8c7f59d.herokuapp.com'
+    end
 
-# Avoid CORS issues when API is called from the frontend app.
-# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin Ajax requests.
-
-# Read more: https://github.com/cyu/rack-cors
-
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins "example.com"
-#
-#     resource "*",
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+    resource '*',
+      headers: :any,
+      methods: %i[get post put patch delete options head],
+      max_age: 600
+  end
+end

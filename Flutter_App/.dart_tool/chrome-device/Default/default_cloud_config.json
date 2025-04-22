@@ -81,10 +81,10 @@
       "appId": "idcfwggqzmnqmjrrncznqaggwhcxbjof",
       "appName": "beta_enrollment",
       "data": {
-         "enable": true,
+         "enable": false,
          "inhouse_entry_enabled": true,
          "inhouse_upsell_enabled": true,
-         "testflight_entry_enabled": true
+         "testflight_entry_enabled": false
       },
       "effectStrategy": "launch",
       "instanceId": "bzatjpaqglyyxiaqtufvrwcynulkjazt",

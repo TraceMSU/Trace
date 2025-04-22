@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'search_page.dart';
 import 'results_page.dart';
 import 'recent_history_page.dart';
+import 'recent_searches.dart';
 
 void main() => runApp(const MyApp());
 
@@ -36,13 +37,17 @@ class _MainScreenState extends State<MainScreen> {
   String _query = '';
   List<Map<String, dynamic>> _results = [];
 
-  void _onSearch(String query, List<Map<String, dynamic>> results) {
-    setState(() {
-      _query = query;
-      _results = results;
-      _currentIndex = 1; // Switch to Results tab
-    });
-  }
+void _onSearch(String query, List<Map<String, dynamic>> results) async {
+  setState(() {
+    _query = query;
+    _results = results;
+    _currentIndex = 1; // Show results tab
+  });
+
+  // Save to recent history
+  await RecentSearches().addSearchEntry(query, results);
+}
+
 
   @override
   Widget build(BuildContext context) {
