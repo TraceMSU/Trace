@@ -2,12 +2,13 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # always allow your production API host
+    # always allow your production host
     allowed = ['https://tracetest-dc00a8c7f59d.herokuapp.com']
-    # plus any extra origins you list in ENV
+    # you can still inject more via ENV if you like…
     allowed.concat((ENV['CORS_ORIGINS'] || '').split(','))
 
-    origins(*allowed)
+    # also allow any localhost on any port
+    origins(*allowed, /\Ahttp:\/\/localhost:\d+\z/)
 
     resource '*',
       headers: :any,
