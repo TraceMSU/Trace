@@ -11,7 +11,7 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestions_from_excel(query)
-    excel_file_path = Rails.root.join('lib', 'data', 'AllTheData.xls').to_s
+    excel_file_path = Rails.root.join('lib', 'data', 'AllTheData.xlsx').to_s
     Rails.logger.info "Excel file path: #{excel_file_path}"
 
     unless File.exist?(excel_file_path)
@@ -20,7 +20,7 @@ class SuggestionsController < ApplicationController
     end
 
     begin
-      workbook = Roo::Excel.new(excel_file_path)
+      workbook = Roo::Spreadsheet.open(excel_file_path)
       sheet = workbook.sheet(0)
       
       if sheet.last_row < 2
