@@ -47,8 +47,8 @@ class SearchController < ApplicationController
         next if product_data.values.any? { |v| v.to_s.strip.empty? }
 
         # Check if any field contains the query (case-insensitive)
-        if product_data.values.any? { |value| value.downcase.include?(query.downcase) }
-          # Build a hash containing only the desired keys, e.g., brand, owner, and ownership type.
+        # Only match if the brand column contains the query (case‑insensitive)
+        if product_data['brand'].to_s.downcase.include?(query.downcase)
           filtered = {
             brand: product_data['brand'],
             owner: product_data['owner'],
