@@ -10,7 +10,7 @@ class SearchController < ApplicationController
   private
 
   def search_products_from_excel(query)
-    excel_file_path = Rails.root.join('lib', 'data', 'testdata.xls').to_s
+    excel_file_path = Rails.root.join('lib', 'data', 'AlltheData.xls').to_s
     Rails.logger.info "Excel file path: #{excel_file_path}"
   
     unless File.exist?(excel_file_path)
