@@ -18,7 +18,7 @@ class ResultsPage extends StatelessWidget {
               child: Text(
                 query.isEmpty
                     ? 'No search performed yet.'
-                    : 'No results found for "\$query".',
+                    : 'No results found for "$query".',
                 style: const TextStyle(fontSize: 16),
               ),
             )

@@ -94,7 +94,7 @@ class HeapResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMegacorp = ownershipType.toLowerCase() == 'megacorp';
+    final bool isMegacorp = ownershipType.toLowerCase().contains('megacorp');
 
     return Column(
       mainAxisSize: MainAxisSize.min,

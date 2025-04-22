@@ -1,8 +1,8 @@
+// lib/recent_searches.dart
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// this saves the list of recent searches
-
 
 class RecentSearches {
   static const String _key = 'recent_searches';
@@ -40,5 +40,11 @@ class RecentSearches {
     }
 
     await prefs.setStringList(_key, entries);
+  }
+
+  /// Clears all saved recent search entries.
+  Future<void> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_key);
   }
 }

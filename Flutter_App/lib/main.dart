@@ -37,24 +37,23 @@ class _MainScreenState extends State<MainScreen> {
   String _query = '';
   List<Map<String, dynamic>> _results = [];
 
-void _onSearch(String query, List<Map<String, dynamic>> results) async {
-  setState(() {
-    _query = query;
-    _results = results;
-    _currentIndex = 1; // Show results tab
-  });
+  void _onSearch(String query, List<Map<String, dynamic>> results) async {
+    setState(() {
+      _query = query;
+      _results = results;
+      _currentIndex = 1; // Show results tab
+    });
 
-  // Save to recent history
-  await RecentSearches().addSearchEntry(query, results);
-}
-
+    // Save to recent history
+    await RecentSearches().addSearchEntry(query, results);
+  }
 
   @override
   Widget build(BuildContext context) {
     final pages = <Widget>[
       SearchPage(onSearch: _onSearch),
       ResultsPage(query: _query, results: _results),
-      const RecentHistoryPage(),
+      RecentHistoryPage(onSelect: _onSearch), // pass callback to handle taps
     ];
 
     return Scaffold(

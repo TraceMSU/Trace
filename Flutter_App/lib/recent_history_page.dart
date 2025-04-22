@@ -1,11 +1,14 @@
 // lib/recent_history_page.dart
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'recent_searches.dart';
 
-/// Displays recent search entries without its own Scaffold.
+/// Now accepts an onSelect callback.
 class RecentHistoryPage extends StatefulWidget {
-  const RecentHistoryPage({super.key});
+  final void Function(String query, List<Map<String, dynamic>> results) onSelect;
+  const RecentHistoryPage({
+    super.key,
+    required this.onSelect,
+  });
 
   @override
   State<RecentHistoryPage> createState() => _RecentHistoryPageState();
@@ -29,32 +32,30 @@ class _RecentHistoryPageState extends State<RecentHistoryPage> {
   }
 
   Future<void> _clearEntries() async {
-    final prefs = await SharedPreferences.getInstance();
-    // previously: prefs.remove(RecentSearches._key);
-    await prefs.remove('recent_searches');
+    await _recentSearches.clear(); // add clear() in RecentSearches for tidiness
     _loadRecentEntries();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _entries.isEmpty
-        ? const Center(child: Text('No recent searches.'))
-        : ListView.builder(
-            itemCount: _entries.length,
-            itemBuilder: (context, index) {
-              final entry = _entries[index];
-              final query = entry['query'] ?? 'Unknown query';
-              final results =
-                  List<Map<String, dynamic>>.from(entry['results'] ?? []);
-              return ListTile(
-                title: Text(
-                  '$query (${results.length} result${results.length == 1 ? '' : 's'})',
-                ),
-                onTap: () {
-                  // implement callback or navigation as needed
-                },
-              );
-            },
-          );
+    if (_entries.isEmpty) {
+      return const Center(child: Text('No recent searches.'));
+    }
+    return ListView.builder(
+      itemCount: _entries.length,
+      itemBuilder: (context, index) {
+        final entry = _entries[index];
+        final query = entry['query'] as String;
+        final results = List<Map<String, dynamic>>.from(entry['results'] ?? []);
+
+        return ListTile(
+          title: Text('$query (${results.length} result${results.length == 1 ? '' : 's'})'),
+          onTap: () {
+            // fire the callback, MainScreen will switch to Results
+            widget.onSelect(query, results);
+          },
+        );
+      },
+    );
   }
 }
