@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   # Product import endpoint (POST with file param)
   post '/import_products', to: 'import#import_products'
+
+  #search product
+  get '/products/search/', to: 'products#search'
 end
