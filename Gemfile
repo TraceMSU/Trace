@@ -17,6 +17,7 @@ gem 'roo-xls'
 gem 'i18n', '~> 1.14', '>= 1.14.7'
 gem 'puma', '>= 6.6.0'
 gem 'rack-cors'
+gem 'openfoodfacts'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
