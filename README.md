@@ -1,7 +1,7 @@
 # README
 # T.R.A.C.E.
 
-**T.R.A.C.E.** (Tool for Researching and Categorizing Economic Entities) is an **Android-only** Flutter application backed by a Rails API. It allows users to search a curated dataset of products (e.g., cereals) and view ownership details in a visual "heap" format.
+**T.R.A.C.E.** (Teaching Responsible And Conscious Expenditures) is an **Android-only** Flutter application backed by a Rails API. It allows users to search a curated dataset of products (e.g., cereals) and view ownership details in a visual "heap" format.
 
 ---
 
