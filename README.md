@@ -92,7 +92,4 @@ Contributions are welcome! Please open issues and submit pull requests on the [G
 
 ---
 
-## License
-
-This project is released under the MIT License. See [LICENSE](LICENSE) for details.
 
