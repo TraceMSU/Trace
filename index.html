@@ -1,8 +1,67 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Download Trace</title>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download TRACE</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f4f7;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      max-width: 400px;
+      width: 90%;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    p.description {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .download-btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .download-btn:hover {
+      background-color: #45A049;
+    }
+    .note {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #666;
+    }
+  </style>
+</head>
 <body>
-  <h1>Download Trace!</h1>
-  <a href="app-release-latest.apk?cache_bust=20250422" download>⬇️ Download TRACE here!</a>
+  <div class="container">
+    <div class="logo">TRACE App</div>
+    <p class="description">Download the latest Android release of TRACE. No sensitive data is collected or required.</p>
+    <a class="download-btn" href="app-release-latest.apk?cache_bust=20250422" download>⬇️ Download TRACE APK</a>
+    <p class="note">Android Only</p>
+  </div>
 </body>
+</html>
