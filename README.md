@@ -28,7 +28,7 @@
 
 Scan the QR code below with your Android device to download and install the APK directly.
 
-![QR Code](path/to/qr-code.png)
+![QR Code](qr-code.png)
 
 ### 2. Visit the Download Page
 
