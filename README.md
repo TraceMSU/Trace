@@ -28,7 +28,7 @@
 
 Scan the QR code below with your Android device to download and install the APK directly.
 
-![QR Code](qr-code.png)
+<img src="qr-code.png" alt="Alt Text" width="300" height="300">
 
 ### 2. Visit the Download Page
 
